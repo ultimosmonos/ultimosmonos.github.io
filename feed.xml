@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="es">
+<title type="text">Últimos monos</title>
+<generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
+<link rel="self" type="application/atom+xml" href="/feed.xml" />
+<link rel="alternate" type="text/html" href="" />
+<updated>2016-03-18T01:32:19+01:00</updated>
+<id>/</id>
+<author>
+  <name>Diego</name>
+  <uri>/</uri>
+  
+</author>
+
+
+
+<entry>
+  <title type="html"><![CDATA[Hola mundito!]]></title>
+ <link rel="alternate" type="text/html" href="/blog/2016/Hola-mundito/" />
+  <id>/blog/2016/Hola mundito</id>
+  <published>2016-03-18T11:00:00+01:00</published>
+  <updated>2016-03-18T11:00:00+01:00</updated>
+  <author>
+    <name>Diego</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">
+    &lt;p&gt;Aquí estamos. Este es mi primer post y lo usaré básicamente para hacer un “Hola Mundo” con una pequeña muestra del tipo de contenido que se podrá encontrar aquí.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Últimos monos&lt;/em&gt; se perfila como un blog de contenido técnico con la siguiente declaración de intenciones en cuanto a temática a tratar:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Pequeñas ideas de administración de equipos.&lt;/li&gt;
+  &lt;li&gt;Experiencias con &lt;a href=&quot;https://git-scm.com/&quot;&gt;git&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Ya que estoy aprendiendo a hacer cosas con &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; espero poder publicar contenido al respecto.&lt;/li&gt;
+  &lt;li&gt;Guías o tutoriales.&lt;/li&gt;
+  &lt;li&gt;Cheat sheets de herramientas de uso cotidiano.&lt;/li&gt;
+  &lt;li&gt;Snippets de código.&lt;/li&gt;
+  &lt;li&gt;¿Buenas? prácticas.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;También me gustaría embarcarme en los siguientes puntos, aunque quizás sea demasiado ambicioso… Sólo el tiempo lo dirá.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Pequeños proyectos DIY.&lt;/li&gt;
+  &lt;li&gt;Arquitectura de sistemas.&lt;/li&gt;
+  &lt;li&gt;Software libre.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Espero que en un tiempo la sección de &lt;a href=&quot;/tags/&quot;&gt;etiquetas&lt;/a&gt; esté llena de contenidos relacionados a los aquí citados e incluso alguno más. Basta ya de presentaciones, es hora de empezar a preparar contenido interesante de verdad.&lt;/p&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/blog/2016/Hola-mundito/&quot;&gt;Hola mundito!&lt;/a&gt; was originally published by Diego at &lt;a href=&quot;&quot;&gt;Últimos monos&lt;/a&gt; on March 18, 2016.&lt;/p&gt;
+
+  </content>
+</entry>
+
+</feed>

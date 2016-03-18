@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+    
+      <url>
+        <loc>/blog/2016/Hola-mundito/</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/blog/2016/Hola-mundito/" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/blog/2016/Hello-world/" />
+        
+        <lastmod>2016-03-18T11:00:00+01:00</lastmod>
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/blog/2016/Hello-world/</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/blog/2016/Hola-mundito/" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/blog/2016/Hello-world/" />
+        
+        <lastmod>2016-03-18T11:00:00+01:00</lastmod>
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+  
+    
+      <url>
+        <loc>/404</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/404" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/404" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/en/404</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/404" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/404" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/feed.xml</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/feed.xml" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/feed.xml" />
+        
+          <xhtml:link rel="alternate" hreflang="" href="/assets/css/lang.css" />
+        
+          <xhtml:link rel="alternate" hreflang="" href="/assets/css/main.css" />
+        
+          <xhtml:link rel="alternate" hreflang="" href="/sitemaps.xml" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/en/feed.xml</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/feed.xml" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/feed.xml" />
+        
+          <xhtml:link rel="alternate" hreflang="" href="/assets/css/lang.css" />
+        
+          <xhtml:link rel="alternate" hreflang="" href="/assets/css/main.css" />
+        
+          <xhtml:link rel="alternate" hreflang="" href="/sitemaps.xml" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/tags/</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/tags/" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/tags/" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/posts/</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/posts/" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/posts/" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/cookies/</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/cookies/" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/cookies/" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/about/</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/about/" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/about/" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/en/tags/</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/tags/" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/tags/" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/en/posts/</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/posts/" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/posts/" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/en/</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/en/cookies/</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/cookies/" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/cookies/" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/en/about/</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/about/" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/about/" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/assets/css/lang.css</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/feed.xml" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/feed.xml" />
+        
+          <xhtml:link rel="alternate" hreflang="" href="/assets/css/lang.css" />
+        
+          <xhtml:link rel="alternate" hreflang="" href="/assets/css/main.css" />
+        
+          <xhtml:link rel="alternate" hreflang="" href="/sitemaps.xml" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/assets/css/main.css</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/feed.xml" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/feed.xml" />
+        
+          <xhtml:link rel="alternate" hreflang="" href="/assets/css/lang.css" />
+        
+          <xhtml:link rel="alternate" hreflang="" href="/assets/css/main.css" />
+        
+          <xhtml:link rel="alternate" hreflang="" href="/sitemaps.xml" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/sitemaps.xml</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/feed.xml" />
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/en/feed.xml" />
+        
+          <xhtml:link rel="alternate" hreflang="" href="/assets/css/lang.css" />
+        
+          <xhtml:link rel="alternate" hreflang="" href="/assets/css/main.css" />
+        
+          <xhtml:link rel="alternate" hreflang="" href="/sitemaps.xml" />
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+</urlset>
