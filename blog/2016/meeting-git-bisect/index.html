@@ -5,29 +5,29 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>Latest Posts &#8211; Últimos monos</title>
-<meta name="description" content="Últimos monos main page">
-<meta name="keywords" content="Jekyll, blog, modern">
+<title>Meeting git bisect &#8211; Últimos monos</title>
+<meta name="description" content="Git-bisect guide in which the basic behaviour of the command is explained along with an ilustrative use case.">
+<meta name="keywords" content="git, bisect, debug">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Latest Posts">
-<meta property="og:description" content="Últimos monos main page">
-<meta property="og:url" content="http://www.ultimosmonos.com/en/">
+<meta property="og:title" content="Meeting git bisect">
+<meta property="og:description" content="Git-bisect guide in which the basic behaviour of the command is explained along with an ilustrative use case.">
+<meta property="og:url" content="http://www.ultimosmonos.com/blog/2016/meeting-git-bisect/">
 <meta property="og:site_name" content="Últimos monos">
 
 
 
 
 
-<link rel="canonical" href="http://www.ultimosmonos.com/en/">
+<link rel="canonical" href="http://www.ultimosmonos.com/blog/2016/meeting-git-bisect/">
 
+<link rel="alternate" hreflang="en" href="/blog/2016/meeting-git-bisect/" />
+<link rel="alternate" hreflang="es" href="/blog/2016/conociendo-a-git-bisect/" />
 
-<link rel="alternate" hreflang="en" href="/en/" />
-<link rel="alternate" hreflang="es" href="/" />
 <link rel="alternate" type="application/rss+xml" title="Últimos monos" href="http://www.ultimosmonos.com/en/feed.xml">
 
 <!-- http://t.co/dKP3o1e -->
@@ -71,7 +71,7 @@
 
 </head>
 
-<body id="post-index" class="feature">
+<body id="post" class="feature">
 
 <!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
 
@@ -130,55 +130,54 @@
 
 <div class="language_wrapper">
   
-  
+   <a href="/blog/2016/meeting-git-bisect/" class="en">en</a>  <a href="/blog/2016/conociendo-a-git-bisect/" class="es">es</a> 
 
   
-   <a href="/en/" class="en">en</a>  <a href="/" class="es">es</a> 
+  
 </div>
 
 
+
 <div class="entry-header">
-  
-  
-    <div class="entry-image">
-      <img src="http://www.ultimosmonos.com/images/f9w.jpg" alt="Latest Posts">
-    </div><!-- /.entry-image -->
-  
-  <div class="header-title">
-    <div class="header-title-wrap">
-      <h1>Últimos monos</h1>
-      <h2>Latest Posts</h2>
-    </div><!-- /.header-title-wrap -->
-  </div><!-- /.header-title -->
+  <div class="image-credit">Image source: <a href="https://www.flickr.com/photos/ruiwen/3260095534">Ruiwen Chua</a></div><!-- /.image-credit -->
+  <div class="entry-image">
+    <img src="http://www.ultimosmonos.com/images/codew.jpg" alt="Meeting git bisect">
+  </div><!-- /.entry-image -->
 </div><!-- /.entry-header -->
 
+
 <div id="main" role="main">
+  <article class="hentry">
+    <header class="header-title">
+      <div class="header-title-wrap">
+        
+          <h1 class="entry-title"><a href="http://www.ultimosmonos.com/blog/2016/meeting-git-bisect/" rel="bookmark" title="Meeting git bisect">Meeting git bisect</a></h1>
+        
+
+        <h2><span class="entry-date date published">
+          <time datetime="2016-03-26T10:00:00+01:00">
+            
   
 
-<article class="hentry">
-  <header>
-    
-      <div class="entry-image-index">
-        <a href="http://www.ultimosmonos.com/blog/2016/meeting-git-bisect/" title="Meeting git bisect"><img src="http://www.ultimosmonos.com/images/codew.jpg" alt="Meeting git bisect"></a>
-      </div><!-- /.entry-image -->
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2016-03-26T10:00:00+01:00"><a href="http://www.ultimosmonos.com/blog/2016/meeting-git-bisect/">March 26, 2016</a></time></span><span class="author vcard"><span class="fn"><a href="http://www.ultimosmonos.com/about/" title="About Diego">Diego</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
+
+
+  March 26, 2016
+
+
+
+          </time></span></h2>
         
+        <p class="entry-reading-time">
+          <i class="fa fa-clock-o"></i>
+          
 Reading time ~5 minutes
 
-      </span><!-- /.entry-reading-time -->
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="http://www.ultimosmonos.com/blog/2016/meeting-git-bisect/" rel="bookmark" title="Meeting git bisect" itemprop="url">Meeting git bisect</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <p>Today I’ve learnt how to use <a href="https://git-scm.com/docs/git-bisect"><em>git-bisect</em></a> and that’s what I found out.</p>
+        </p><!-- /.entry-reading-time -->
+        
+      </div><!-- /.header-title-wrap -->
+    </header>
+    <div class="entry-content">
+      <p>Today I’ve learnt how to use <a href="https://git-scm.com/docs/git-bisect"><em>git-bisect</em></a> and that’s what I found out.</p>
 
 <h1 id="initial-scenario">Initial scenario</h1>
 
@@ -303,63 +302,40 @@ Reading time ~5 minutes
   </ol>
 </div>
 
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    
-      <div class="entry-image-index">
-        <a href="http://www.ultimosmonos.com/blog/2016/Hello-world/" title="Hello world!"><img src="http://www.ultimosmonos.com/images/f7w.jpg" alt="Hello world!"></a>
-      </div><!-- /.entry-image -->
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2016-03-18T11:00:00+01:00"><a href="http://www.ultimosmonos.com/blog/2016/Hello-world/">March 18, 2016</a></time></span><span class="author vcard"><span class="fn"><a href="http://www.ultimosmonos.com/about/" title="About Diego">Diego</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
+      <footer class="entry-meta">
+        <span class="entry-tags"><a href="http://www.ultimosmonos.com/tags/#git" title="Pages tagged git" class="tag"><span class="term">git</span></a><a href="http://www.ultimosmonos.com/tags/#bisect" title="Pages tagged bisect" class="tag"><span class="term">bisect</span></a><a href="http://www.ultimosmonos.com/tags/#debug" title="Pages tagged debug" class="tag"><span class="term">debug</span></a></span>
         
-Reading time ~1 minute
-
-      </span><!-- /.entry-reading-time -->
-      
-    </div><!-- /.entry-meta -->
+        <div class="social-share">
+  <ul class="socialcount socialcount-small inline-list">
     
-      <h1 class="entry-title"><a href="http://www.ultimosmonos.com/blog/2016/Hello-world/" rel="bookmark" title="Hello world!" itemprop="url">Hello world!</a></h1>
     
-  </header>
-  <div class="entry-content">
-    <p>So that’s it. This is my first post just to say hello. Nothing memorable but enough to introduce myself and to make a summary of what you can expect to find here.</p>
+    
+  </ul>
+</div><!-- /.social-share -->
 
-<p><em>Últimos monos</em> is expected to be a technical blog, with the following declaration of intent in respect of covered topics:</p>
+      </footer>
+    </div><!-- /.entry-content -->
+    <section id="disqus_thread"></section><!-- /#disqus_thread -->
+    
 
-<ul>
-  <li>Some system administration ideas.</li>
-  <li><a href="https://git-scm.com/">Git</a> experiences.</li>
-  <li>Since I’m learning how to use <a href="http://jekyllrb.com">Jekyll</a>, I expect to publish related content.</li>
-  <li>Howtos</li>
-  <li>Cheat sheets.</li>
-  <li>Code snippets.</li>
-  <li>Good? practices.</li>
-</ul>
-
-<p>I would also like to add some posts with the following topic, but that might be too ambitious at this point… Only time will tell.</p>
-
-<ul>
-  <li>Little DIY projects.</li>
-  <li>System architectures.</li>
-  <li>Open source software.</li>
-</ul>
-
-<p>I hope that some time from now the <a href="/en/tags/">tags</a> section will be full of contents related to the ones listed here and even some more. Enough for presentations, it’s time to start producing some interesting contents!</p>
-
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
+<div class="read-more">
+  
+    <div class="read-more-header">
+      <a href="http://www.ultimosmonos.com/blog/2016/Hello-world/" class="read-more-btn">Read More</a>
+    </div><!-- /.read-more-header -->
+    <div class="read-more-content">
+      <h3><a href="http://www.ultimosmonos.com/blog/2016/Hello-world/" title="Hello world!">Hello world!</a></h3>
+      <p>So that’s it. This is my first post just to say hello. Nothing memorable but enough to introduce myself and to make a summary of what you...&hellip; <a href="http://www.ultimosmonos.com/blog/2016/Hello-world/">Continue reading</a></p>
+    </div><!-- /.read-more-content -->
+  
+  <div class="read-more-list">
+    
+    
+  </div><!-- /.read-more-list -->
+</div><!-- /.read-more -->
 
 
-
-
+  </article>
 </div><!-- /#main -->
 
 <div class="footer-wrapper">
@@ -387,6 +363,28 @@ Reading time ~1 minute
 </script>
 
 
+
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'ultimosmonos'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
 </body>

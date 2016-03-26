@@ -3,6 +3,34 @@
   
     
       <url>
+        <loc>/blog/2016/meeting-git-bisect/</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/blog/2016/meeting-git-bisect/" />
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/blog/2016/conociendo-a-git-bisect/" />
+        
+        <lastmod>2016-03-26T10:00:00+01:00</lastmod>
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/blog/2016/conociendo-a-git-bisect/</loc>
+        
+        
+          <xhtml:link rel="alternate" hreflang="en" href="/blog/2016/meeting-git-bisect/" />
+        
+          <xhtml:link rel="alternate" hreflang="es" href="/blog/2016/conociendo-a-git-bisect/" />
+        
+        <lastmod>2016-03-26T10:00:00+01:00</lastmod>
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
         <loc>/blog/2016/Hola-mundito/</loc>
         
         
@@ -96,12 +124,12 @@
   
     
       <url>
-        <loc>/tags/</loc>
+        <loc>/posts/</loc>
         
         
-          <xhtml:link rel="alternate" hreflang="es" href="/tags/" />
+          <xhtml:link rel="alternate" hreflang="es" href="/posts/" />
         
-          <xhtml:link rel="alternate" hreflang="en" href="/en/tags/" />
+          <xhtml:link rel="alternate" hreflang="en" href="/en/posts/" />
         
         <changefreq>weekly</changefreq>
       </url>
@@ -109,12 +137,12 @@
   
     
       <url>
-        <loc>/posts/</loc>
+        <loc>/tags/</loc>
         
         
-          <xhtml:link rel="alternate" hreflang="es" href="/posts/" />
+          <xhtml:link rel="alternate" hreflang="es" href="/tags/" />
         
-          <xhtml:link rel="alternate" hreflang="en" href="/en/posts/" />
+          <xhtml:link rel="alternate" hreflang="en" href="/en/tags/" />
         
         <changefreq>weekly</changefreq>
       </url>
@@ -161,12 +189,12 @@
   
     
       <url>
-        <loc>/en/tags/</loc>
+        <loc>/en/posts/</loc>
         
         
-          <xhtml:link rel="alternate" hreflang="es" href="/tags/" />
+          <xhtml:link rel="alternate" hreflang="es" href="/posts/" />
         
-          <xhtml:link rel="alternate" hreflang="en" href="/en/tags/" />
+          <xhtml:link rel="alternate" hreflang="en" href="/en/posts/" />
         
         <changefreq>weekly</changefreq>
       </url>
@@ -174,12 +202,12 @@
   
     
       <url>
-        <loc>/en/posts/</loc>
+        <loc>/en/tags/</loc>
         
         
-          <xhtml:link rel="alternate" hreflang="es" href="/posts/" />
+          <xhtml:link rel="alternate" hreflang="es" href="/tags/" />
         
-          <xhtml:link rel="alternate" hreflang="en" href="/en/posts/" />
+          <xhtml:link rel="alternate" hreflang="en" href="/en/tags/" />
         
         <changefreq>weekly</changefreq>
       </url>
