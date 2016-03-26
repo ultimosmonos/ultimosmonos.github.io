@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://www.ultimosmonos.com/feed.xml" />
 <link rel="alternate" type="text/html" href="http://www.ultimosmonos.com" />
-<updated>2016-03-26T16:12:37+01:00</updated>
+<updated>2016-03-26T16:33:54+01:00</updated>
 <id>http://www.ultimosmonos.com/</id>
 <author>
   <name>Diego</name>
@@ -32,124 +32,7 @@
 
 &lt;p&gt;El típico caso en el que &lt;em&gt;git bisect&lt;/em&gt; nos puede ayudar y mucho es el siguiente:&lt;/p&gt;
 
-&lt;p&gt;Supongamos que estamos trabajando en el desarrollo de nuestro proyecto y llegamos a una versión que consideramos estable, llamémosle versión &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;v1.0.0&lt;/em&gt;&lt;/span&gt;. Nuestro trabajo en el proyecto continúa y vamos añadiendo nuevas &lt;em&gt;features&lt;/em&gt;. Llegamos a un punto en el que consideramos que debemos liberar una nueva versión, sea la versión &lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;v1.1.0-rc&lt;/em&gt;&lt;/span&gt;. Durante el proceso de preparación para la liberación de esta nueva versión nos damos cuenta de que hay una funcionalidad que ha dejado de comportarse como debía (desafortunadamente nuestros tests no cubrían el caso concreto en el que hemos detectado el fallo&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;). Sabemos que en la versión &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;v1.0.0&lt;/em&gt;&lt;/span&gt; esto estaba funcionando correctamente, por lo que tenemos dos puntos de nuestra historia identificados con estado válido (&lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;good&lt;/em&gt;&lt;/span&gt;) e inválido (&lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;bad&lt;/em&gt;&lt;/span&gt;) separados por un número de commits no despreciable.
-Sin duda, saber el commit en el que las cosas empiezan a torcerse es muy útil de cara a corregir el problema. Por ello, podríamos ir haciendo comprobaciones commit a commit para conseguir identificar el punto exacto en el que las cosas empiezan a ir mal… ¡Qué pereza!&lt;/p&gt;
-
-&lt;figure&gt;
-	&lt;a href=&quot;https://farm6.staticflickr.com/5247/5317828328_39f2fa1178_b_d.jpg&quot;&gt;&lt;img src=&quot;/images/posts/tired.jpg&quot; alt=&quot;Perezoso...&quot; /&gt;&lt;/a&gt;
-	&lt;figcaption&gt;&lt;a href=&quot;https://www.flickr.com/photos/pbarry/5317828328&quot; target=&quot;``_blank``&quot; title=&quot;Jodhpur - tired monkey, on Flickr&quot;&gt;Jodhpur - tired monkey por Patrick Barry, en Flickr&lt;/a&gt;.&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Aquí es donde entra en juego &lt;em&gt;git bisect&lt;/em&gt; para alegrarnos el día.&lt;/p&gt;
-
-&lt;h1 id=&quot;para-qu-sirve-git-bisect&quot;&gt;¿Para qué sirve git bisect?&lt;/h1&gt;
-
-&lt;p&gt;&lt;em&gt;Bisect&lt;/em&gt; es una funcionalidad de git que permite recorrer un grupo de commits y hacer comprobaciones en ellos de manera interactiva. Es especialmente útil para poder localizar el punto en el que se &lt;em&gt;cuela&lt;/em&gt; un &lt;em&gt;bug&lt;/em&gt; en una serie de commits, aunque no es su única aplicación.&lt;/p&gt;
-
-&lt;p&gt;Los commits se recorren de manera no lineal, utilizando un &lt;a href=&quot;https://en.wikipedia.org/wiki/Binary_search_algorithm&quot;&gt;algoritmo de búsqueda binario&lt;/a&gt;. Esta es, sin duda, una buena aplicación para recorrer un listado ordenado y encontrar un determinado elemento que cumple una condición, reduciendo de manera significativa el número de pasos necesarios.&lt;/p&gt;
-
-&lt;p&gt;Inicialmente lo único que sabemos es que en un punto de la historia de nuestro proyecto todo funcionaba correctamente (en el ejemplo, la versión &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;v1.0.0&lt;/em&gt;&lt;/span&gt;) y que en otro punto ha dejado de funcionar como se esperaba (&lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;v1.1.0-rc&lt;/em&gt;&lt;/span&gt;). El estado de todos los commits intermedios es una incógnita para nosotros.&lt;/p&gt;
-
-&lt;figure&gt;
-	&lt;a href=&quot;/images/posts/binsearch/step1.png&quot;&gt;&lt;img src=&quot;/images/posts/binsearch/step1.png&quot; alt=&quot;git-bisect-step1&quot; /&gt;&lt;/a&gt;
-&lt;/figure&gt;
-
-&lt;h1 id=&quot;iniciando-el-anlisis&quot;&gt;Iniciando el análisis&lt;/h1&gt;
-
-&lt;p&gt;Para empezar a trabajar hay que determinar el punto de inicio y el punto de fin entre los que se encuentra el &lt;em&gt;bug&lt;/em&gt; que estamos buscando. Podemos especificarlo de manera directa al inicio como sigue:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect start &amp;lt;start-commit&amp;gt; &amp;lt;end-commit&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Otra opción es iniciar el análisis y especificar por separado el último commit &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;good&lt;/em&gt;&lt;/span&gt; que tenemos identificado y el primer commit &lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;bad&lt;/em&gt;&lt;/span&gt; conocido, típicamente &lt;em&gt;HEAD&lt;/em&gt;. En nuestro ejemplo sería algo así:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect start
- &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect bad HEAD
- &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect good v1.0.0&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Tras iniciar el proceso, iremos “saltando” de commit en commit, lo que nos permitirá realizar las pruebas que consideremos necesarias en cada uno de ellos para determinar si el &lt;em&gt;bug&lt;/em&gt; está o no presente en el commit bajo análisis.&lt;/p&gt;
-
-&lt;p&gt;Podremos abandonar el proceso de &lt;em&gt;bisect&lt;/em&gt; en cualquier momento, volviendo al punto en el que nos encontrábamos antes de iniciar el análisis.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect reset&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Como ya hemos avanzado antes, los commits no se recorren de manera lineal, sino que se aplica un algoritmo de búsqueda binario. En la imagen siguiente, el commit bajo análisis es el representado en amarillo (el punto medio entre el último commit &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;good&lt;/em&gt;&lt;/span&gt; y el primer commit &lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;bad&lt;/em&gt;&lt;/span&gt; conocidos).&lt;/p&gt;
-
-&lt;figure&gt;
-	&lt;a href=&quot;/images/posts/binsearch/step2.png&quot;&gt;&lt;img src=&quot;/images/posts/binsearch/step2.png&quot; alt=&quot;git-bisect-step2&quot; /&gt;&lt;/a&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Para pasar al siguiente commit sólo tenemos que “marcar” el punto actual como bueno (&lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;good&lt;/em&gt;&lt;/span&gt;) o malo (&lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;bad&lt;/em&gt;&lt;/span&gt;).&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect good&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;De este modo, podemos saber que todos los commits entre el etiquetado como la versión &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;v1.0.0&lt;/em&gt;&lt;/span&gt; y el commit que acabamos de marcar como &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;good&lt;/em&gt;&lt;/span&gt; son también correctos y ahí no está nuestro &lt;em&gt;bug&lt;/em&gt;.&lt;/p&gt;
-
-&lt;figure&gt;
-	&lt;a href=&quot;/images/posts/binsearch/step3.png&quot;&gt;&lt;img src=&quot;/images/posts/binsearch/step3.png&quot; alt=&quot;git-bisect-step3&quot; /&gt;&lt;/a&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Tras establecer la etiqueta en el commit, &lt;em&gt;git-bisect&lt;/em&gt; se encarga de “llevarnos” al siguiente commit a analizar. Tendremos que repetir el proceso para determinar si se trata de un commit &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;good&lt;/em&gt;&lt;/span&gt; o &lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;bad&lt;/em&gt;&lt;/span&gt;.&lt;/p&gt;
-
-&lt;figure&gt;
-	&lt;a href=&quot;/images/posts/binsearch/step4.png&quot;&gt;&lt;img src=&quot;/images/posts/binsearch/step4.png&quot; alt=&quot;git-bisect-step4&quot; /&gt;&lt;/a&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Después de completar unas cuantas iteraciones, llegará un punto en el que git será capaz de determinar el primer commit que contiene el &lt;em&gt;bug&lt;/em&gt;. &lt;em&gt;Work Done!&lt;/em&gt;&lt;/p&gt;
-
-&lt;figure&gt;
-	&lt;a href=&quot;/images/posts/binsearch/step5.png&quot;&gt;&lt;img src=&quot;/images/posts/binsearch/step5.png&quot; alt=&quot;git-bisect-step5&quot; /&gt;&lt;/a&gt;
-&lt;/figure&gt;
-
-&lt;h2 id=&quot;posibles-problemas&quot;&gt;Posibles problemas&lt;/h2&gt;
-
-&lt;p&gt;Durante el proceso de análisis y comprobación de cada commit es posible que se marque alguno de manera incorrecta. ¿Cómo tenemos que proceder para revertir esta situación?&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Podemos reiniciar el proceso y en consecuencia perder el estado actual de las etiquetas que hemos ido introduciendo.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect reset
- &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect start&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Cuando reiniciar el proceso no es una opción, podemos utilizar el subcomando &lt;em&gt;log&lt;/em&gt; para almacenar los cambios que hemos hecho en un fichero. Tras esto podremos modificar el estado de los commits en el fichero en el que hemos volcado el output del subcomando &lt;em&gt;log&lt;/em&gt; y cargarlo de nuevo mediante el subcomando &lt;em&gt;replay&lt;/em&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect log &amp;gt; bisect_log_file
- &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;vim bisect_log_file
- &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect replay bisect_log_file&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;em&gt;Et voilà!&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Es posible también que nos encontremos con commits en los que no podemos aplicar las pruebas para determinar si el &lt;em&gt;bug&lt;/em&gt; está presente o no, o en su defecto, que tenemos la total certeza de que ese commit no lo ha introducido. En ese caso es posible omitir el análisis del commit y ahorrarnos ese valioso tiempo.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect skip&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h1 id=&quot;bisecting-like-a-pro&quot;&gt;Bisecting like a pro&lt;/h1&gt;
-
-&lt;p&gt;Este proceso es claramente repetitivo… y por ello es posible automatizarlo si podemos incluir las pruebas a realizar en cada commit en un script. Este script debe devolver un código de salida entre 1 y 127 (excepto 125&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;) en caso de que el commit bajo análisis se quiera etiquetar como &lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;bad&lt;/em&gt;&lt;/span&gt; o un 0 si se quiere etiquetar como &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;good&lt;/em&gt;&lt;/span&gt;. Cualquier otro código de salida abortará el proceso.&lt;/p&gt;
-
-&lt;p&gt;Para realizar el análisis mediante un script usaremos lo siguiente:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect run &amp;lt;script&amp;gt; &amp;lt;script_arguments&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h1 id=&quot;conclusiones&quot;&gt;Conclusiones&lt;/h1&gt;
-
-&lt;p&gt;Esto es todo lo que he aprendido sobre &lt;em&gt;git-bisect&lt;/em&gt;. Creo que es una herramienta muy útil a la que se le puede sacar mucho partido. Recuerda que git es tu amigo.&lt;/p&gt;
-
-&lt;p&gt;Como siempre, puedes encontrar información más detallada en &lt;a href=&quot;https://git-scm.com/docs/git-bisect&quot;&gt;git-scm&lt;/a&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;¡Maldita sea, seguimos sin tener unos tests perfectos! &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;El código de salida 125 significa que el commit bajo análisis no se puede comprobar, equivalente a introducir &lt;em&gt;git bisect skip&lt;/em&gt;. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;
-
+&lt;p&gt;Supongamos que estamos trabajando en el desarrollo de nuestro proyecto y llegamos a una versión que consideramos estable, llamémosle versión &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;v1.0.0&lt;/em&gt;&lt;/span&gt;. Nuestro trabajo en el proyecto continúa y vamos añadiendo nuevas &lt;em&gt;features&lt;/em&gt;. Llegamos a un punto en el que consideramos que debemos liberar una nueva versión, sea la versión &lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;v1.1.0-rc&lt;/em&gt;&lt;/span&gt;. Durante el proceso de preparación para la liberación de esta nueva versión nos damos cuenta de que hay una funcionalidad que ha dejado de comportarse como debía (desafortunadamente nuestros tests no cubrían el caso concreto en el que hemos detectado el fallo&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;). Sabemos que en la versión &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;v1.0.0&lt;/em&gt;&lt;/span&gt; esto estaba funcionando correctamente, por lo que tenemos dos puntos de nuestra histo...
     &lt;p&gt;&lt;a href=&quot;http://www.ultimosmonos.com/blog/2016/conociendo-a-git-bisect/&quot;&gt;Conociendo a git bisect&lt;/a&gt; was originally published by Diego at &lt;a href=&quot;http://www.ultimosmonos.com&quot;&gt;Últimos monos&lt;/a&gt; on March 26, 2016.&lt;/p&gt;
 
   </content>
@@ -190,9 +73,7 @@ Sin duda, saber el commit en el que las cosas empiezan a torcerse es muy útil d
   &lt;li&gt;Software libre.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Espero que en un tiempo la sección de &lt;a href=&quot;/tags/&quot;&gt;etiquetas&lt;/a&gt; esté llena de contenidos relacionados a los aquí citados e incluso alguno más. Basta ya de presentaciones, es hora de empezar a preparar contenido interesante de verdad.&lt;/p&gt;
-
-
+&lt;p&gt;Espero que en un tiempo la sección de &lt;a href=&quot;/tags/&quot;&gt;etiquetas&lt;/a&gt; esté llena de contenidos relacionados a los aquí citados e incluso alguno más. Basta ya de presentaciones, es hora de empezar a preparar c...
     &lt;p&gt;&lt;a href=&quot;http://www.ultimosmonos.com/blog/2016/Hola-mundito/&quot;&gt;Hola mundito!&lt;/a&gt; was originally published by Diego at &lt;a href=&quot;http://www.ultimosmonos.com&quot;&gt;Últimos monos&lt;/a&gt; on March 18, 2016.&lt;/p&gt;
 
   </content>

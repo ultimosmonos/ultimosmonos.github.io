@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://www.ultimosmonos.com/en/feed.xml" />
 <link rel="alternate" type="text/html" href="http://www.ultimosmonos.com" />
-<updated>2016-03-26T16:12:37+01:00</updated>
+<updated>2016-03-26T16:33:54+01:00</updated>
 <id>http://www.ultimosmonos.com/</id>
 <author>
   <name>Diego</name>
@@ -32,125 +32,7 @@
 
 &lt;p&gt;The typical use case in which &lt;em&gt;git bisect&lt;/em&gt; can help us making our lives easier is the following one:&lt;/p&gt;
 
-&lt;p&gt;Let’s assume that we are working on a project and that we finally achieve a stable version, let’s tag it as version &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;v1.0.0&lt;/em&gt;&lt;/span&gt;. After that, our work continues adding new &lt;em&gt;features&lt;/em&gt; and so on. Some commits before we reach the point in which we think we should release a new version, that version might be tagged as &lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;v1.1.0-rc&lt;/em&gt;&lt;/span&gt;. Unfortunately, during the release process we discovered that one of the features previously implemented is no longer working as expected (we should have noticed that in our tests… but they were not testing this specific case in which the &lt;em&gt;bug&lt;/em&gt; comes to light&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;…). We certainly know that this were not happening on version &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;v1.0.0&lt;/em&gt;&lt;/span&gt;, so that we have identified two points in our history with statuses &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;good&lt;/em&gt;&lt;/span&gt; and &lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;bad&lt;/em&gt;&lt;/span&gt;, separated by a non-negligible number of commits.&lt;/p&gt;
-
-&lt;p&gt;In that case, knowing the commit in which the things started to go wrong is really useful in order to fix the problem. Therefore, we could start checking every commit one-by-one to identify the exact point in which the &lt;em&gt;bug&lt;/em&gt; was introduced… I’m feeling lazy!&lt;/p&gt;
-
-&lt;figure&gt;
-	&lt;a href=&quot;https://farm6.staticflickr.com/5247/5317828328_39f2fa1178_b_d.jpg&quot;&gt;&lt;img src=&quot;/images/posts/tired.jpg&quot; alt=&quot;Lazy...&quot; /&gt;&lt;/a&gt;
-	&lt;figcaption&gt;&lt;a href=&quot;https://www.flickr.com/photos/pbarry/5317828328&quot; target=&quot;``_blank``&quot; title=&quot;Jodhpur - tired monkey, on Flickr&quot;&gt;Jodhpur - tired monkey by Patrick Barry, en Flickr&lt;/a&gt;.&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;And here is where &lt;em&gt;git bisect&lt;/em&gt; comes into play.&lt;/p&gt;
-
-&lt;h1 id=&quot;whats-git-bisect-for&quot;&gt;What’s git-bisect for?&lt;/h1&gt;
-
-&lt;p&gt;&lt;em&gt;Bisect&lt;/em&gt; is a git function that allows the developer to automatically iterate over several commits in order to check them interactively. That’s specially useful when trying to find the point where a &lt;em&gt;bug&lt;/em&gt; enters the scene, although that’s not the only application of &lt;em&gt;git-bisect&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;This tool guides you through the commits in a non linear way using a &lt;a href=&quot;https://en.wikipedia.org/wiki/Binary_search_algorithm&quot;&gt;binary search algorithm&lt;/a&gt;. This is a cool application to go through an ordered list of elements to find the one that meets a condition, significantly reducing amount of steps to achieve our goal.&lt;/p&gt;
-
-&lt;p&gt;The only thing we know at first is that in some point in the history of our project everything was working flawlessly (version &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;v1.0.0&lt;/em&gt;&lt;/span&gt; in our example) and that in other point we realised that not everything was working as expected (&lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;v1.1.0-rc&lt;/em&gt;&lt;/span&gt;). The intermediate commits status is unknown at this point.&lt;/p&gt;
-
-&lt;figure&gt;
-	&lt;a href=&quot;/images/posts/binsearch/step1.png&quot;&gt;&lt;img src=&quot;/images/posts/binsearch/step1.png&quot; alt=&quot;git-bisect-step1&quot; /&gt;&lt;/a&gt;
-&lt;/figure&gt;
-
-&lt;h1 id=&quot;starting-the-analysis&quot;&gt;Starting the analysis&lt;/h1&gt;
-
-&lt;p&gt;In order to start the bisecting process it is needed to establish the start and finish commits between whom the &lt;em&gt;bug&lt;/em&gt; was introduced. We can specify it directly as follows:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect start &amp;lt;start-commit&amp;gt; &amp;lt;end-commit&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Other option is to start the analysis and set separately the last known &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;good&lt;/em&gt;&lt;/span&gt; commit and the first &lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;bad&lt;/em&gt;&lt;/span&gt; commit we currently know, usually &lt;em&gt;HEAD&lt;/em&gt;. In our example it might look like this:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect start
- &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect bad HEAD
- &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect good v1.0.0&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;When the bisecting process is started, git will be guiding us through the commits “jumping” among them, which will allow us to check every thing needed in order to discover if the &lt;em&gt;bug&lt;/em&gt; is present or not in the commit under analysis.&lt;/p&gt;
-
-&lt;p&gt;It’s possible to abandon the &lt;em&gt;bisect&lt;/em&gt; process anytime. That will restore the git repository to the status we were just before starting the analysis.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect reset&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;As we previously said, git bisect goes through the commits in a non linear way, applying a binary search algorithm. In the following figure the commit under analysis is the yellow one, halfway between the last known &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;good&lt;/em&gt;&lt;/span&gt; commit and the first known &lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;bad&lt;/em&gt;&lt;/span&gt; commit.&lt;/p&gt;
-
-&lt;figure&gt;
-	&lt;a href=&quot;/images/posts/binsearch/step2.png&quot;&gt;&lt;img src=&quot;/images/posts/binsearch/step2.png&quot; alt=&quot;git-bisect-step2&quot; /&gt;&lt;/a&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;In order to advance in the process it is needed to set the commit under analysis either as &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;good&lt;/em&gt;&lt;/span&gt; or &lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;bad&lt;/em&gt;&lt;/span&gt;.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect good&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;In our example, thanks to our input, git now knows that every commit between the one tagged with version &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;v1.0.0&lt;/em&gt;&lt;/span&gt; and the one we’ve just tagged as &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;good&lt;/em&gt;&lt;/span&gt; are all correct and that there is not our &lt;em&gt;bug&lt;/em&gt;.&lt;/p&gt;
-
-&lt;figure&gt;
-	&lt;a href=&quot;/images/posts/binsearch/step3.png&quot;&gt;&lt;img src=&quot;/images/posts/binsearch/step3.png&quot; alt=&quot;git-bisect-step3&quot; /&gt;&lt;/a&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;After tagging the commit, &lt;em&gt;git-bisect&lt;/em&gt; bring us to the next commit to analyze. We’ll have to start over again and determine if the new commit under analysis is &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;good&lt;/em&gt;&lt;/span&gt; or &lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;bad&lt;/em&gt;&lt;/span&gt;.&lt;/p&gt;
-
-&lt;figure&gt;
-	&lt;a href=&quot;/images/posts/binsearch/step4.png&quot;&gt;&lt;img src=&quot;/images/posts/binsearch/step4.png&quot; alt=&quot;git-bisect-step4&quot; /&gt;&lt;/a&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Some iterations later, we should arrive to the point in which git must be able to determine the first commit containing the &lt;em&gt;bug&lt;/em&gt;. &lt;em&gt;Work Done!&lt;/em&gt;&lt;/p&gt;
-
-&lt;figure&gt;
-	&lt;a href=&quot;/images/posts/binsearch/step5.png&quot;&gt;&lt;img src=&quot;/images/posts/binsearch/step5.png&quot; alt=&quot;git-bisect-step5&quot; /&gt;&lt;/a&gt;
-&lt;/figure&gt;
-
-&lt;h2 id=&quot;possible-problems&quot;&gt;Possible problems&lt;/h2&gt;
-
-&lt;p&gt;During the analysis and checking process is possible to tag some commit incorrectly. How can we deal with that situation?&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;We can restart the process loosing all the previous tags set.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect reset
- &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect start&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;When restarting the process is not an option, we can use the &lt;em&gt;log&lt;/em&gt; subcommand in order to store the tags we’ve set in a file. After that, we can fix any error we’ve made tagging the commits just editing the file we’ve saved and reload it again using the &lt;em&gt;replay&lt;/em&gt; subcommand.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect log &amp;gt; bisect_log_file
- &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;vim bisect_log_file
- &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect replay bisect_log_file&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;em&gt;Et voilà!&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Other thing that might happen is that, at some point, we can find commits in which it is not possible to determine if the &lt;em&gt;bug&lt;/em&gt; is present or not, or even if we certainly know that commit did not introduce the &lt;em&gt;bug&lt;/em&gt;. In that case is possible to skip the commit analysis using:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect skip&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h1 id=&quot;bisecting-like-a-pro&quot;&gt;Bisecting like a pro&lt;/h1&gt;
-
-&lt;p&gt;This is clearly a repetitive process… so that it is possible to automate if we can build a script including the checks to perfom in each commit. This script must return a code between 1 and 127 (except 125&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;) when the commit under analysis must be tagged as &lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;bad&lt;/em&gt;&lt;/span&gt; or 0 if it must be tagged as &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;good&lt;/em&gt;&lt;/span&gt;. Any other exit code will abort the process.&lt;/p&gt;
-
-&lt;p&gt;That’s how we can perform an analysis using a script:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git bisect run &amp;lt;script&amp;gt; &amp;lt;script_arguments&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h1 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h1&gt;
-
-&lt;p&gt;That’s what I’ve learnt about &lt;em&gt;git-bisect&lt;/em&gt;. I think it’s a very useful tool which can save us from wasting a lot of time when debugging. Just remember, git is your friend.&lt;/p&gt;
-
-&lt;p&gt;As always, you can find detailed information in &lt;a href=&quot;https://git-scm.com/docs/git-bisect&quot;&gt;git-scm&lt;/a&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;Dammit!, We still have an incomplete test set! &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;The 125 exit code means that the commit under analysis cannot be checked, that’s the equivalent of using &lt;em&gt;git bisect skip&lt;/em&gt;. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;
-
+&lt;p&gt;Let’s assume that we are working on a project and that we finally achieve a stable version, let’s tag it as version &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;v1.0.0&lt;/em&gt;&lt;/span&gt;. After that, our work continues adding new &lt;em&gt;features&lt;/em&gt; and so on. Some commits before we reach the point in which we think we should release a new version, that version might be tagged as &lt;span style=&quot;color: red&quot;&gt;&lt;em&gt;v1.1.0-rc&lt;/em&gt;&lt;/span&gt;. Unfortunately, during the release process we discovered that one of the features previously implemented is no longer working as expected (we should have noticed that in our tests… but they were not testing this specific case in which the &lt;em&gt;bug&lt;/em&gt; comes to light&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;…). We certainly know that this were not happening on version &lt;span style=&quot;color: green&quot;&gt;&lt;em&gt;v1.0.0&lt;/em&gt;&lt;/span&gt;, so that we have identified two points in ...
     &lt;p&gt;&lt;a href=&quot;http://www.ultimosmonos.com/blog/2016/meeting-git-bisect/&quot;&gt;Meeting git bisect&lt;/a&gt; was originally published by Diego at &lt;a href=&quot;http://www.ultimosmonos.com&quot;&gt;Últimos monos&lt;/a&gt; on March 26, 2016.&lt;/p&gt;
 
   </content>
